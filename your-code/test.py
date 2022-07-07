@@ -1,7 +1,18 @@
+<<<<<<< HEAD
 
 # define rooms and items
 
 
+=======
+from playsound import playsound
+import pygame
+from pygame import mixer
+pygame.init()
+soundObj = mixer.Sound('SawTheme.ogg')
+soundObj.play()
+# define rooms and items
+
+>>>>>>> aa57668fa88f312707ccb23a11ddd38502728397
 couch = {
     "name": "couch",
     "type": "furniture",
@@ -133,6 +144,7 @@ INIT_GAME_STATE = {
     "target_room": outside
 }
 
+<<<<<<< HEAD
 import cmd
 import textwrap
 import sys
@@ -230,12 +242,23 @@ def title_screen():
 
 
 
+=======
+>>>>>>> aa57668fa88f312707ccb23a11ddd38502728397
 def linebreak():
     """
     Print a line break
     """
     print("\n\n")
 
+<<<<<<< HEAD
+=======
+def start_game():
+    """
+    Start the game
+    """
+    print("You wake up on a couch and find yourself in a strange house with no windows which you have never been to before. You don't remember why you are here and what had happened before. You feel some unknown danger is approaching and you must get out of the house, NOW!")
+    play_room(game_state["current_room"])
+>>>>>>> aa57668fa88f312707ccb23a11ddd38502728397
 
 def play_room(room):
     """
@@ -245,6 +268,11 @@ def play_room(room):
     """
     game_state["current_room"] = room
     if(game_state["current_room"] == game_state["target_room"]):
+<<<<<<< HEAD
+=======
+        soundObj.stop()
+        playsound('alive.mp3')
+>>>>>>> aa57668fa88f312707ccb23a11ddd38502728397
         print("Congrats! You escaped the room!")
     else:
         print("You are now in " + room["name"])
@@ -321,7 +349,16 @@ def examine_item(item_name):
         play_room(next_room)
     else:
         play_room(current_room)
+<<<<<<< HEAD
 
 game_state = INIT_GAME_STATE.copy()
 
 title_screen()
+=======
+    
+
+game_state = INIT_GAME_STATE.copy()
+
+start_game()
+
+>>>>>>> aa57668fa88f312707ccb23a11ddd38502728397
