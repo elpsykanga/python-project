@@ -1,5 +1,9 @@
 from playsound import playsound
-
+import pygame
+from pygame import mixer
+pygame.init()
+mixer.music.load('SawTheme.ogg')
+mixer.music.play(-1)
 # define rooms and items
 
 couch = {
