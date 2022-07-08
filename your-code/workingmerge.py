@@ -14,6 +14,9 @@ import random
 pygame.init()
 soundObj = mixer.Sound('SawTheme.ogg')
 soundObj.play()
+pygame.mixer.music.load('SawTheme.ogg')
+pygame.mixer.music.play(-1)
+
 # define rooms and items
 
 couch = {
@@ -304,6 +307,7 @@ def play_room(room):
     """
     game_state["current_room"] = room
     if(game_state["current_room"] == game_state["target_room"]):
+        pygame.mixer.music.stop()
         soundObj.stop()
         playsound('alive.mp3')
         print("Congrats! You escaped the room!")
