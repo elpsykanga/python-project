@@ -1,6 +1,16 @@
-from playsound import playsound
+import playsound
 import pygame
 from pygame import mixer
+import cmd
+import textwrap
+import sys
+import os
+import time
+import random
+
+
+
+
 pygame.init()
 soundObj = mixer.Sound('SawTheme.ogg')
 soundObj.play()
@@ -137,18 +147,9 @@ INIT_GAME_STATE = {
     "target_room": outside
 }
 
-import cmd
-import textwrap
-import sys
-import os
-import time
-import random
-
-
-
-screen_width = 100
-
 ### Generating Funtions ###
+
+
 ### TEXT DELAY ###
 def waiting(t):
     time.sleep(t)
@@ -162,14 +163,12 @@ def waiting(t):
     print()
 
 
+def talk_speed(dialog, speed):
+    sys.stdout.write(dialog)
+    sys.stdout.flush()
+    time.sleep(speed)
 
-
-
-### GAME START###
-
-            
-    
-        
+### GAME SEQUENCE###
 def start_game():
     
     waiting(0.25)
@@ -188,19 +187,81 @@ def play_action():
             print("Nothing happens")
             start_game()
     if action.lower() == ("turn on tv"):
-            play_room(game_state["current_room"])
-
+            intro_tv()
     while action.lower() not in ["panic", "turn on tv"]:
-        print("you're chained to a couch, so you dont have a lot of options (enter a valid input)")
+        print("You're chained to a couch, so you dont have a lot of options (enter a valid input)")
         action = input('>   ')
         if action.lower() == ('panic'):
                 print("You panic")
                 waiting(0.5)
                 print("Nothing happens")
         if action.lower() == ("turn on tv"):
-           play_room(game_state["current_room"]) 
+            intro_tv()
+
+ ### Dialogue ###   
+def intro_tv():
+    waiting(0.3)
+    print("You turn on the tv to see a puppet staring back at you, motionless.")
+    talk1 = "Hello friend, you've been asleep for a long time\n"
+    for character in talk1:
+        talk_speed(character, 0.05)
+    question1 = "Before we go on, please tell me your name\n"
+    talk_speed(question1, 0.05)
+    player_name = input(">   ")
+    player1name = player_name
+    waiting(0.3)
+    talk2 = player1name + " hmm what a nice name for a dead person now...\n"
+    for character in talk2:
+        talk_speed(character, 0.05)
+    question2 = "Please tell me how you're feeling\n"
+    for character in question2:
+        talk_speed(character, 0.05)
+    vibe = input("How are you feeling \n"+ "\n>   ")
+    player1_emotion = vibe.lower()
+
+#Creates the adjective vocabulary for the player's feeling.
+
+    good_adj = ['good', 'great', 'rohit', 'happy', 'aight', 'understanding', 'great', 'alright', 'calm', 'confident', 'not bad', 'courageous', 'peaceful', 'reliable', 'joyous', 'energetic', 'at', 'ease', 'easy', 'lucky', 'k', 'comfortable', 'amazed', 'fortunate', 'optimistic', 'pleased', 'free', 'delighted', 'swag', 'encouraged', 'ok', 'overjoyed', 'impulsive', 'clever', 'interested', 'gleeful', 'free', 'surprised', 'satisfied', 'thankful', 'frisky', 'content', 'receptive', 'important', 'animated', 'quiet', 'okay', 'festive', 'spirited', 'certain', 'kind', 'ecstatic', 'thrilled', 'relaxed', 'satisfied', 'wonderful', 'serene', 'glad', 'free', 'and', 'easy', 'cheerful', 'bright', 'sunny', 'blessed', 'merry', 'reassured', 'elated', '1738', 'love', 'interested', 'positive', 'strong', 'loving']
+    hmm_adj = ['idk', 'concerned', 'lakshya', 'eager', 'impulsive', 'considerate', 'affected', 'keen', 'free', 'affectionate', 'fascinated', 'earnest', 'sure', 'sensitive', 'intrigued', 'intent', 'certain', 'tender', 'absorbed', 'anxious', 'rebellious', 'devoted', 'inquisitive', 'inspired', 'unique', 'attracted', 'nosy', 'determined', 'dynamic', 'passionate', 'snoopy', 'excited', 'tenacious', 'admiration', 'engrossed', 'enthusiastic', 'hardy', 'warm', 'curious', 'bold', 'secure', 'touched', 'brave', 'sympathy', 'daring', 'close', 'challenged', 'loved', 'optimistic', 'comforted', 're', 'enforced', 'drawn', 'toward', 'confident', 'hopeful', 'difficult']
+    bad_adj = ['bad', 'meh', 'sad', 'hungry', 'unpleasant', 'feelings', 'angry', 'depressed', 'confused', 'helpless', 'irritated', 'lousy', 'upset', 'incapable', 'enraged', 'disappointed', 'doubtful', 'alone', 'hostile', 'discouraged', 'uncertain', 'paralyzed', 'insulting', 'ashamed', 'indecisive', 'fatigued', 'sore', 'powerless', 'perplexed', 'useless', 'annoyed', 'diminished', 'embarrassed', 'inferior', 'upset', 'guilty', 'hesitant', 'vulnerable', 'hateful', 'dissatisfied', 'shy', 'empty', 'unpleasant', 'miserable', 'stupefied', 'forced', 'offensive', 'detestable', 'disillusioned', 'hesitant', 'bitter', 'repugnant', 'unbelieving', 'despair', 'aggressive', 'despicable', 'skeptical', 'frustrated', 'resentful', 'disgusting', 'distrustful', 'distressed', 'inflamed', 'abominable', 'misgiving', 'woeful', 'provoked', 'terrible', 'lost', 'pathetic', 'incensed', 'in', 'despair', 'unsure', 'tragic', 'infuriated', 'sulky', 'uneasy', 'cross', 'bad', 'pessimistic', 'dominated', 'worked', 'up', 'a', 'sense', 'of', 'loss', 'tense', 'boiling', 'fuming', 'indignant', 'indifferent', 'afraid', 'hurt', 'sad', 'insensitive', 'fearful', 'crushed', 'tearful', 'dull', 'terrified', 'tormented', 'sorrowful', 'nonchalant', 'suspicious', 'deprived', 'pained', 'neutral', 'anxious', 'pained', 'grief', 'reserved', 'alarmed', 'tortured', 'anguish', 'weary', 'panic', 'dejected', 'desolate', 'bored', 'nervous', 'rejected', 'desperate', 'preoccupied', 'scared', 'injured', 'pessimistic', 'cold', 'worried', 'offended', 'unhappy', 'disinterested', 'frightened', 'afflicted', 'lonely', 'lifeless', 'timid', 'aching', 'grieved', 'shaky', 'victimized', 'mournful', 'restless', 'heartbroken', 'dismayed', 'doubtful', 'agonized', 'threatened', 'appalled', 'cowardly', 'humiliated', 'quaking', 'wronged', 'menaced', 'alienated', 'wary']
+### Defining the feelings the player has ####
+    if player1_emotion in good_adj:
+        response_string = "thats good to hear that you feel"
+    elif player1_emotion in bad_adj:
+        response_string = "im sorry to hear that you feel "
+    elif player1_emotion in hmm_adj: 
+        response_string = "thats interesting that you feel"
+    else:
+        response_string = "I'm a puppet and I can't really feel"
     
-       
+    talk3 = "Well then, " + player1name + ", " + response_string + " " + player1_emotion + ".\n"
+    for character in talk3:
+        talk_speed(character, 0.05)
+    waiting(0.5)
+    talk4 = "Now, enough time wasting. You are stuck in here and you must get out alive. I have laid out a series of tests for you. Figure them out and maybe you'll live, and if you mess up well... \n"
+    for character in talk4:
+        talk_speed(character, 0.05)
+    talk5 = "YOU WILL DIE. \n"
+    for character in talk5:
+        talk_speed(character, 0.25)
+    play_stage1()
+
+ 
+##### BEGIN GAME #######
+def play_stage1():
+    """
+   This is the opening sequence
+
+    """
+   
+    print("################################")
+    print("#      NOW BEGINS THE GAME     #")
+    print("#                               ")
+    print("#  WILL YOU BE ABLE TO SURVIVE #")
+    print("################################\n")
+    print("You are now left alone in the cold concrete room.\n Your arm that's chained to the wall is numb,\n you must have been unconcious for a long time\n 'DAMNIT I KNEW I SHOULDN'T HAVE FALLEN ASLEEP DURING THE PANDAS LESSON' you think to yourself \n if what the puppet said was true you need to get going or you'll end up on the news as just another dead body \n infront of you, you see a handsaw on a coffee table")
+    waiting(0.5)
+    play_room(game_state["current_room"])
 
 
 ### Title Screen ###
@@ -234,18 +295,6 @@ def title_screen():
 
 
 
-def linebreak():
-    """
-    Print a line break
-    """
-    print("\n\n")
-
-def start_game():
-    """
-    Start the game
-    """
-    print("You wake up on a couch and find yourself in a strange house with no windows which you have never been to before. You don't remember why you are here and what had happened before. You feel some unknown danger is approaching and you must get out of the house, NOW!")
-    play_room(game_state["current_room"])
 
 def play_room(room):
     """
@@ -260,7 +309,7 @@ def play_room(room):
         print("Congrats! You escaped the room!")
     else:
         print("You are now in " + room["name"])
-        intended_action = input("What would you like to do? Type 'explore' or 'examine'?").strip()
+        intended_action = input("What would you like to do? Type 'explore' or 'examine'?")
         if intended_action == "explore":
             explore_room(room)
             play_room(room)
